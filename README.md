@@ -2,7 +2,7 @@
 
 A lexical analyzer (tokenizer) for **KwentoFlow**, a Domain-Specific Language that combines narrative structure with secure middleware logic for web applications.
 
-## 📖 About KwentoFlow
+##  About KwentoFlow
 
 KwentoFlow is a narrative-driven programming language designed to solve broken access control issues in web development. It treats programs as stories with:
 - **Scenes** - State machines representing moments in the narrative
@@ -10,6 +10,6 @@ KwentoFlow is a narrative-driven programming language designed to solve broken a
 - **Transitions** - State changes that move the story forward
 - **Perceives** - Built-in row-level security and field masking
 
-## 🎯 Project Overview
+##  Project Overview
 
 This lexical analyzer is the first phase of the KwentoFlow. It converts raw source code into a stream of tokens that will be consumed by the parser.
