@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 
 const Header: React.FC = () => {
   return (
-    <header className="w-full bg-parchment px-8 py-4 flex justify-between items-center border-2 border-(--kwento-gold)">
+    <header className="w-full bg-parchment px-8 py-4 flex justify-between items-center border-b-2 border-(--kwento-gold)">
       {/* Left Side: Logo and Titles */}
       <div className="flex gap-4">
         {/* Logo Image */}
@@ -15,10 +15,10 @@ const Header: React.FC = () => {
 
         {/* Title Text */}
         <div className="flex flex-col justify-center">
-          <h1 className="font-serif font-bold text-2xl text-ink leading-tight">
+          <h1 className="font-serif font-bold text-2xl text-(--kwento-ink) leading-tight">
             KwentoFlow: Lexical Analyzer
           </h1>
-          <p className="font-serif text-ink/80italic">
+          <p className="font-serif text-(--kwento-ink)/80italic">
             Weaving Code into Narrative
           </p>
         </div>
@@ -28,7 +28,7 @@ const Header: React.FC = () => {
       {/* Using <nav> for semantic HTML */}
       <nav className="flex items-center gap-8 mt-2 font-serif font-bold text-(--kwento-ink)">
         <a
-          href="https://github.com"
+          href="https://github.com/vincelasam/lex-analyzer_kwento-flow"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-ink transition-colors"
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
         {/* The Help Icon Circle */}
         <button
           aria-label="Help"
-          className="bg-ink text-parchment rounded-full w-8 h-8 flex items-center justify-center font-bold hover:bg-ink/90 transition-colors"
+          className="bg-ink text-parchment rounded-full w-8 h-8 flex items-center justify-center font-bold hover:bg-(--kwento-ink) transition-colors"
         >
           ?
         </button>

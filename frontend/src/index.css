@@ -5,11 +5,12 @@
 /* Custom Colors & Base Styles */
 @layer base {
   :root {
-    /* From your Color Palette Image */
+    /* Color Palette */
     --kwento-bg: #f1eedf; /* Main Interface (Beige) */
     --kwento-paper: #fffefc; /* Inner Content (Off-white) */
     --kwento-gold: #d4af37; /* Accents/Borders */
     --kwento-ink: #2c3e50; /* Main Text (Dark Slate) */
+    --kwento-side: #efeacf; /* Line Number */
 
     /* Estimated from your Button Image (Deep Coffee Brown) */
     --kwento-brown: #5d4037;
@@ -21,7 +22,7 @@
     font-family: "Merriweather", serif;
   }
 
-  /* Force headers to be bold/distinct if needed */
+  /* Force headers to be bold/distinct */
   h1,
   h2,
   h3,
@@ -41,7 +42,7 @@
   }
 }
 
-/* Utility Components (Note Optional: to match your buttons exactly) */
+/* Utility Components (Note Optional: To match buttons exactly) */
 @layer components {
   /* The "Analyze Narrative Structure" Button */
   .btn-primary {

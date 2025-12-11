@@ -1,7 +1,7 @@
 import { Panel } from "../../components/ui/Panel";
 
 export const TokenTable = () => {
-  // Placeholder data to match your screenshot
+  // Placeholder data
   const tokens = [
     {
       id: 1,
