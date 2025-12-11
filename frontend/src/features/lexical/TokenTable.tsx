@@ -56,8 +56,8 @@ export const TokenTable = () => {
 
   return (
     <Panel title="Lexical Tokens (The Elements)">
-      <div className="h-full overflow-auto">
-        <table className="w-full text-left text-sm font-sans border-collapse">
+      <div className="h-full w-full overflow-auto min-w-0">
+        <table className="w-max min-w-full text-left text-sm font-sans border-collapse">
           <thead className="bg-gray-100 text-xs font-bold text-gray-600 uppercase tracking-wider sticky top-0">
             <tr>
               <th className="px-4 py-3 border-b border-gray-200">Line</th>

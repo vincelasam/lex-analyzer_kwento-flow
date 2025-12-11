@@ -18,7 +18,7 @@ export const Panel = ({ title, children, action }: PanelProps) => {
         </div>
 
         {/* Panel Content */}
-        <div className="grow overflow-hidden">{children}</div>
+        <div className="grow min-w-0 overflow-auto">{children}</div>
       </div>
     </div>
   );
