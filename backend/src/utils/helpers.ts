@@ -68,10 +68,11 @@ export function removeComments(tokens: Token[]): Token[] {
   );
 }
 
-/* =====================================================
-   Character Stream
-===================================================== */
 
+//Nandito yung sinasabi mo pre para malaman if nasa dulo na ba ng file
+//Pinaayos ko sa kay gpt
+
+// ========== CharStream Class ==========
 /**
  * Handles sequential reading of source code
  * while tracking line and column positions.
