@@ -17,10 +17,10 @@ import { makeToken, keywordOrIdentifier } from "../utils/utils";
 export class Lexer {
 
     constructor (private stream : CharStream) {}
+
+    private tokens: Token[] = [];
     
     tokenize() : Token[]{
-      
-      private tokens: Token[] = [];
       
         while (!this.stream.isEOF()){
         const ch = this.stream.peek();
@@ -157,31 +157,38 @@ export class Lexer {
             this.tokens.push(token);
         } else {
             let value = "~";
-            let closed = false;
+            let depth = 1;
 
-            while(!this.stream.isEOF()){
-                const ch = this.stream.peek();
+            while (!this.stream.isEOF()) {
+            const ch = this.stream.peek();
 
-                if (ch == "~"){
-                    value += this.stream.advance();
-                    closed = true;
-                    break;
+            if (ch == "~") {
+                value += this.stream.advance();
+                depth--;
+
+                if (depth == 0) {
+                    const token = makeToken(
+                        TokenType.MultiLineComment,
+                        value,
+                        startLine,
+                        startColumn
+                    );
+                    this.tokens.push(token);
+                    return;
                 }
-
+            } else {
                 value += this.stream.advance();
 
-            }
-
-            if(!closed){
-                const token = makeToken(TokenType.Error, "Unterminated multi line comment",startLine,startColumn);
-                this.tokens.push(token);
-            } else {
-                const token = makeToken(TokenType.MultiLineComment,value,startLine,startColumn);
-                this.tokens.push(token)
+                if (this.stream.peek() == "~") {
+                    depth++;
+                }
             }
         }
 
+            const token = makeToken(TokenType.Error,"Unterminated multi line comment",startLine,startColumn);
+            this.tokens.push(token);
     }
+}
 
     private scanOperator(): void {
         const startLine = this.stream.getLine();
