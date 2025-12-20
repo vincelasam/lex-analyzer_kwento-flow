@@ -6,11 +6,10 @@ interface ManuscriptEditorProps {
   setCode: (code: string) => void;
 }
 
-// 1. CONFIGURATION: Define these exactly so both sides match
 const CONFIG = {
-  lineHeight: 24, // px
-  padding: 16, // px (matches p-4)
-  fontSize: 14, // px (matches text-sm)
+  lineHeight: 24,
+  padding: 16,
+  fontSize: 14,
 };
 
 export const ManuscriptEditor: React.FC<ManuscriptEditorProps> = ({
@@ -21,17 +20,14 @@ export const ManuscriptEditor: React.FC<ManuscriptEditorProps> = ({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Calculate lines (ensure at least 1 line exists)
   const lineCount = code.split("\n").length;
 
-  // 2. SCROLL SYNC: One-way sync from Textarea -> LineNumbers
   const handleScroll = (e: React.UIEvent<HTMLTextAreaElement>) => {
     if (lineNumbersRef.current) {
       lineNumbersRef.current.scrollTop = e.currentTarget.scrollTop;
     }
   };
 
-  // 3. LAYOUT SYNC: Ensure they match immediately after any update
   useLayoutEffect(() => {
     if (lineNumbersRef.current && textareaRef.current) {
       lineNumbersRef.current.scrollTop = textareaRef.current.scrollTop;
@@ -44,7 +40,7 @@ export const ManuscriptEditor: React.FC<ManuscriptEditorProps> = ({
       const textarea = e.currentTarget;
       const start = textarea.selectionStart;
       const end = textarea.selectionEnd;
-      const spaces = "  "; // 2 spaces
+      const spaces = "  ";
       const newCode = code.substring(0, start) + spaces + code.substring(end);
       setCode(newCode);
       setTimeout(() => {
@@ -56,6 +52,17 @@ export const ManuscriptEditor: React.FC<ManuscriptEditorProps> = ({
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    const validExtensions = [".txt", ".kf"];
+    const fileExtension = file.name
+      .slice(file.name.lastIndexOf("."))
+      .toLowerCase();
+
+    if (!validExtensions.includes(fileExtension)) {
+      alert("Invalid file type. Please upload a .txt or .kf file.");
+      return;
+    }
+
     try {
       const content = await file.text();
       setCode(content);
@@ -69,7 +76,8 @@ export const ManuscriptEditor: React.FC<ManuscriptEditorProps> = ({
     <Panel
       title="Manuscript Source (Code)"
       action={
-        <>
+        // CHANGED: Flex-col to stack them vertically
+        <div className="flex flex-col items-center gap-0.5">
           <input
             ref={fileInputRef}
             type="file"
@@ -77,23 +85,28 @@ export const ManuscriptEditor: React.FC<ManuscriptEditorProps> = ({
             onChange={handleFileSelect}
             className="hidden"
           />
+
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="flex items-center gap-2 px-3 py-1 text-sm font-bold border border-(--kwento-gold) rounded hover:bg-parchment transition-all active:scale-95 active:bg-stone-300"
+            // Added 'w-full' and 'justify-center' to align with the text width
+            className="w-full flex justify-center items-center gap-2 px-3 py-1 text-sm font-bold border border-(--kwento-gold) rounded hover:bg-parchment transition-all active:scale-95 active:bg-stone-300"
           >
             <span className="bg-black text-white px-1 text-xs">↑</span>
             Upload
           </button>
-        </>
+
+          {/* MOVED: Note is now under the button */}
+          <span className="text-[9px] uppercase font-bold text-gray-400 tracking-wider text-center w-full">
+            Supports .txt & .kf
+          </span>
+        </div>
       }
     >
       <div className="flex h-full bg-(--kwento-bg) overflow-hidden rounded-md relative">
-        {/* === LEFT: Line Numbers === */}
         <div
           ref={lineNumbersRef}
-          className="flex flex-col items-end text-gray-400 bg-(--kwento-side) select-none border-r border-gray-100 overflow-hidden min-w-[3rem]"
+          className="flex flex-col items-end text-gray-400 bg-(--kwento-side) select-none border-r border-gray-100 overflow-hidden min-w-12"
           style={{
-            // STRICT STYLE ENFORCEMENT
             paddingTop: `${CONFIG.padding}px`,
             paddingBottom: `${CONFIG.padding}px`,
             fontFamily: "monospace",
@@ -105,14 +118,13 @@ export const ManuscriptEditor: React.FC<ManuscriptEditorProps> = ({
             <div
               key={i}
               className="w-full text-center hover:text-gray-600 transition-colors"
-              style={{ height: `${CONFIG.lineHeight}px` }} // Force exact height per line
+              style={{ height: `${CONFIG.lineHeight}px` }}
             >
               {i + 1}
             </div>
           ))}
         </div>
 
-        {/* === RIGHT: Text Area === */}
         <textarea
           ref={textareaRef}
           value={code}
@@ -123,7 +135,6 @@ export const ManuscriptEditor: React.FC<ManuscriptEditorProps> = ({
           placeholder="Start typing your KwentoFlow code..."
           spellCheck={false}
           style={{
-            // STRICT STYLE ENFORCEMENT MATCHING LEFT SIDE
             padding: `${CONFIG.padding}px`,
             fontFamily: "monospace",
             fontSize: `${CONFIG.fontSize}px`,

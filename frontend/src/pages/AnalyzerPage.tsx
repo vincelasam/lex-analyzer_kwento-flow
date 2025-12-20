@@ -30,7 +30,7 @@ const AnalyzerPage = () => {
   return (
     // CHANGE 1: Use h-[85vh] (or h-[calc(100vh-100px)]) to force a fixed height.
     // This stops the page from growing infinitely.
-    <div className="flex flex-col lg:flex-row gap-6 h-[70vh] w-full p-4">
+    <div className="flex flex-col lg:flex-row gap-6 w-full p-4 min-h-[70vh] lg:h-[70vh]">
       {/* LEFT: Editor */}
       {/* CHANGE 2: Add min-h-0 to allow the inner scroll to work */}
       <section className="flex-1 flex flex-col gap-4 min-h-0">
