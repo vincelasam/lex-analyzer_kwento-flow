@@ -103,7 +103,7 @@ export const TokenTable = ({ tokens, code }: TokenTableProps) => {
         tokens.length > 0 ? (
           <button
             onClick={handleDownloadPDF}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-bold bg-(--kwento-brown) text-white rounded hover:brightness-110 transition-all"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-bold bg-(--kwento-brown) text-white rounded hover:brightness-110 transition-all active:scale-95 active:bg-stone-300"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
