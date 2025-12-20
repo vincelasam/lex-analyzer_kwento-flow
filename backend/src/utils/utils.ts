@@ -23,6 +23,9 @@ export function keywordOrIdentifier(
   lexeme: string,
   keywords: Record<string, TokenType>
 ): TokenType {
+  if (Object.prototype.hasOwnProperty.call(keywords, lexeme)) {
+    return keywords[lexeme]; //use to ensure we only get defined keywords
+  }
   return keywords[lexeme] ?? TokenType.Identifier;
 }
 
