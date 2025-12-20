@@ -132,7 +132,7 @@ export class Lexer {
             }
 
           const token = makeToken(TokenType.Error,
-            "Invalid Identifier: '${value}' (identifiers cannot start with a digit)",
+            `Invalid Identifier: '${value}' (identifiers cannot start with a digit)`,
             startLine, 
             startColumn
             ); 
