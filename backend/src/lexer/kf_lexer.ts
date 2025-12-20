@@ -80,36 +80,6 @@ export class Lexer {
             word += this.stream.advance();
         }
 
-         if (!this.stream.isEOF()) {
-            const nextChar = this.stream.peek();
-
-             if (!isAlphaNumeric(nextChar) && 
-                !isWhitespace(nextChar) && 
-                !isOperatorChar(nextChar) && 
-                !isDelimiterChar(nextChar) &&
-                nextChar !== '"' &&
-                nextChar !== '~') {
-
-                const invalidChar = nextChar;
-                word += this.stream.advance();
-
-                while (!this.stream.isEOF() && 
-                       !isWhitespace(this.stream.peek()) &&
-                       this.stream.peek() !== '~') {
-                    word += this.stream.advance();
-                }
-
-                 const token = makeToken(
-                    TokenType.Error,
-                    `Invalid identifier: '${word}' (contains invalid character '${invalidChar}')`,
-                    startLine,
-                    startColumn
-                );
-                this.tokens.push(token);
-                return;
-            }
-        }
-
         const type = keywordOrIdentifier(word, KEYWORDS);
         const token = makeToken(type, word, startLine, startColumn);
         this.tokens.push(token);
