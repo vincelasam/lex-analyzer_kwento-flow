@@ -96,6 +96,21 @@ export class Lexer {
           value += readNumber(this.stream);
         }
 
+        if (!this.stream.isEOF() && isLetter(this.stream.peek())){
+            while(!this.stream.isEOF() && isAlphaNumeric(this.stream.peek())){
+                value += this.stream.advance();
+            }
+
+          const token = makeToken(TokenType.Error,
+            "Invalid Identifier: '${value}' (identifiers cannot start with a digit)",
+            startLine, 
+            startColumn
+            ); 
+            
+            this.tokens.push(token);
+            return;
+        }
+
           const token = makeToken(TokenType.NumberLiteral, value, startLine, startColumn);
           this.tokens.push(token);
         }
@@ -243,7 +258,7 @@ export class Lexer {
                 lexeme = '&&';
             } else {
                 type = TokenType.Error;
-                lexeme = ch;
+                lexeme = "Invalid operator '&' (use '&&' for logical AND)";
             }
             break;
             
@@ -253,7 +268,7 @@ export class Lexer {
                 lexeme = '||';
             } else {
                 type = TokenType.Error;
-                lexeme = ch;
+                lexeme = "Invalid operator '|' (use '||' for logical OR)";
             }
             break;
             
