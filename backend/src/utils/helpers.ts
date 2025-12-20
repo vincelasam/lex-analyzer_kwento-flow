@@ -83,6 +83,12 @@ export function readString(stream: CharStream): string {
           break;
         default:
           // Invalid escape sequence - treat as error
+          while (!stream.isEOF() && stream.peek() !== '"') {
+            stream.advance();
+          }
+          if (!stream.isEOF()) {
+            stream.advance(); // consume closing quote
+          }
           throw new Error(`Invalid escape sequence: \\${nextChar}`);
       }
     } else {

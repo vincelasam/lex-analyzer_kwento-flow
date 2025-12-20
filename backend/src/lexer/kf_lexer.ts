@@ -135,7 +135,7 @@ export class Lexer {
             this.tokens.push(token);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : "String Error";
-            const token = makeToken(TokenType.Error, "Unterminated String", startLine,startColumn);
+            const token = makeToken(TokenType.Error, errorMessage, startLine,startColumn);
             this.tokens.push(token);
         }
     }
